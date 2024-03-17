@@ -1,0 +1,135 @@
+=====================================================================================================================
+Style Guidelines (Kompozisyon)#
+-------------------------------
+1) identifiers (isimlendirme):
+	(değişkenler, fonksiyonlar, sabitler.. yani isim vediğiniz herşey)
+	Programınızda isimlendirilecek herşey amacını açıklayacak şekilde isimlendirilmeli.
+	Okuyucu, isimlendirdiğiniz nesneyi anlamak için kodu taramak zorunda kalmamalı.
+	Özellikle okuyucuyu kodun dışında bir belgeye yönlendirmek zorunda kalınmamalı.
+	İsimler, anlamını açıklayan en kısa isim olarak seçilmeli.
+	Değişken isimleri isim, eylem isimleri eylem belirtmeli. Mesela gömlek adedini saklayacağaınız
+		değişken için count_shirt veya cnt_shirt diyebilirsiniz. veya gömleklerin toplam fiyatını
+		hesaplayacak olan bir fonksiyona calculate_shirt() gibi bir isim verebilirsiniz.
+	
+2) layout (Düzen):
+	İnsan-bilgisayar arasında etkileşim kuran proferyoneller düzen ve düzenlemenin yani kompozisyonun
+	okunabilirliği, erişilebilirliği ve anlaşılabilirliği çok etkilediğini söyler.
+	kötü yazılan kod yanlış anlamaya müsaittir.
+	kod yazma alanımızı görsel olarak alanlara ayırmamız gerekir. bunun için kullanacağımız yöntemler şunlarıdır.
+		* indentation (girinti)
+		* line length (satır uzunluğu)
+		* braces (parantezler)
+		* spaces (boşluklar)
+		* comments (yourmlar)
+	
+	indentaion:
+		girintileme, mantığımızın yapısını açıkça gösteren ve kod bloklarımızın nerede başlayıp nerede
+		bittiğini görsel olarak vurgulayan yardımcı bir araçtır. C programlarında önerilen girintileme
+		4 veya 8 boşluklu tab sekmesidir.
+		Girinti için boşluklar yerine tab sekmelerini kullanırız. bunun sebebi kodu kullananlar eğer kendi
+		editörlerinde kullandıklarında kendi ayarları ile görecek ve girinti bozulmaları meydana gelmeyecek.
+		örneğin bizim 8 karatere ayrarladığımız tab boşluğunu, kodu okuyan kişi 2 karatere ayarlamış olabilir.
+	
+	line length:
+		satır uzunluğu bir çok editörde 72 veya 80 karakterdir. genelde 72 karakter satır uzunluğu kullanılır
+		maksimum bir satırda 80 karakter olmalıdır. çünkü kodu print etmek gerektiğinde satır kağıt
+		üstünde veya bir shell ekranında taşmaya sebep olabilir.
+
+	braces:
+		okunabilirliği arttırdığı için genelde Eric Allman stili önerilir.
+		ör:
+			if (i == 7)
+			{
+    				cost = 1.75;
+			 	printf("Congrats!\n");
+			}
+
+		google ise aşağıdaki tarzı önerir. çünkü ekranda görüntülenecek kod sayısı fazladır.
+		ör:
+			if(i == 7){
+    				cost = 1.75;
+			        printf("Congrats!\n");
+			}
+	spaces:
+		Virgüllerden, noktalı virgüllerden sonra veya operatörlerin sağına ve soluna boşluklar koyarız.
+		iş grupları arasında bir satır boşluk bırakırız. ancak gereksiz boşluklardan kaçınmalıyız.
+		Aşağıdaki örneği dikkatice inceleyin.
+
+			int i; // space after keyword
+
+			scanf("%d", &i); // no space after unary operator
+
+			i = i * i; // single spaces around binary operators
+
+			if (i == 7) // no spaces between identifiers or constants and parentheses
+			{
+			    printf("Congrats!\n");
+			}
+
+			for (i = 0; i < 10; i++) // single space after ;
+			{
+			    printf("%d ", i);   // no space after call identifier
+			}
+
+	Comments:
+		Nasıl yapıldığını değil, neyin yapıldığını açıklamak içi yorumlar kullanırız.
+		yorumları en anlaşılır ve kısa cümleler ile belirtiyoruz. süslemekten kaçınıyoruz.
+		Verileri yorumlamak önemliyse bunu değişkeni bildirirken yaparız.
+		Değişken bildirimlerini yorumladığımızda her değişkeni ayrı bir satırda bildirir ve satır içi
+		yorumlar kullanırız.
+		Her kaynak dosyasının (source code) başına genelde aşağıdaki bilgiler eklenir.
+			Programın başlığı
+			Kaynak dosya adı
+			Yazar(lar)ın adı
+		Çoğu zaman, özellikle kütüphane dosyalarında başlangıçta üsteki bilgilerden sonra kodun amacı 
+		açıklanır.
+			örn:
+				/* Payroll Deductions
+  				 * payroll.c
+				 * Jane Doe
+  				 */
+
+				// display even integers below 11
+				//
+				for (j = 0; j < 11; j += 2)
+				{
+				    printf(" %d", j);
+				}
+
+3) okunabilirliği arttıracak diğer yöntemler
+	* global değişkenlerden elimizden geldiğince kaçınırız.
+
+	* elimizden geldiğince sayılarla biten değişken tanımlamalarından kaçınırız. (bu hiç kullanmayacağımız
+	  anlamına gelmez)
+
+	* karakter tanımlarken elimizden geldiğince ascii sembollerini kullnaırız.
+	  ör:
+		char c = '\n';   // doğru
+		char c = 10;	 // kaçınmalıyız.
+		
+		'\n' 'in decimal karşılığı 10 dur. ikiside enter karakteridir. ama koda eklerken '\n' daha okunaklı
+		olduğu için ascii sembol ekleme yöntemi tercih edilir.
+
+	* döngü başlarında döngü değişkenlerini (iteration variable) başlatırız.
+	  ör:
+		for (i = 0; i < 10; i++)   // doğru
+		
+		i = 0
+		for (; i < 10; i++) 	   // tercih edilmez
+
+	* gövdesi boş olan döngülerden elimizden geldiğince kaçınırız.
+
+	* kullanılmayan değişkenleri mutlaka kaynak kodumuzdan sileriz
+
+	* en son ürünleşecek koddan daha önce bize yardımcı olsun diye yazdığımız yorumları ve debuging işlemlerini
+	  kodu derlemeden önce silerek kodumuzu temizleriz.
+===================================================================================================================
+Notes:
+	unary operator:
+		tek operant alan operatörlerdir.
+
+	binary operator:
+		çift operant alan operatörlerdir.
+
+	Ternary Operator:
+		üç operant alan operatörlerdir.
